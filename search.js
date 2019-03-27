@@ -7,24 +7,41 @@ window.onload = function()
     	return response.json();
     })
     .then(function(myJson) {
-    	data = myJson
-    	writeResults(myJson)
+    	data = myJson;
+    	writeResults();
   	});
+
+  	document.getElementById('searchbar').addEventListener('input', writeResults)
 }
 
-function writeResults(data)
+function writeResults()
 {
+	var query = document.getElementById('searchbar').value;
+	var new_data = []
+	for(var i=0;i<data.length;i++)
+	{
+		if(data[i]['Name'].includes(query))
+		{
+			new_data.push(data[i]);
+		}
+	}
 	results = document.getElementById('results')
 	results.innerHTML = ""
 	for(var i=(25*pagenumber)-25;i<25*pagenumber;i++)
 	{
+		var flag = true;
 		try
 		{
-			results.innerHTML += data[i]['Name']+'<br>'+data[i]['Type1']+' '+data[i]['Type2']+'<br><br>';
+			results.innerHTML += new_data[i]['Name']+'<br>'+new_data[i]['Type1']+' '+new_data[i]['Type2']+'<br><br>';
 		}
 		catch
 		{
 			document.getElementById("nextpage").style.display = 'none';
+			var flag = false;
+		}
+		if(flag)
+		{
+			document.getElementById("nextpage").style.display = 'inline';
 		}
 	}
 	window.scrollTo(0,0);
@@ -33,7 +50,7 @@ function writeResults(data)
 function goToNextPage()
 {
 	pagenumber++;
-	writeResults(data);
+	writeResults();
 	document.getElementById("prevpage").style.display = 'inline';
 }
 
@@ -42,7 +59,7 @@ function goToPrevPage()
 	if(pagenumber > 1)
 	{
 		pagenumber--;
-		writeResults(data);
+		writeResults();
 		if(pagenumber == 1)
 		{
 			document.getElementById("prevpage").style.display = 'none';
