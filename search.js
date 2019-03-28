@@ -1,5 +1,8 @@
 data = {}
 pagenumber=1
+
+colors = {'Poison':'DA35DC', 'Grass':'35DC43', 'Fire': 'FF0000', 'Water': '26CCFF', 'Bug': '458027', 'Flying': 'ADFFFF', 'Normal': 'E7E7E7', 'Fighting': 'A64141', 'Ground': 'D3B469', 'Rock': '85744C', 'Ghost': '6F6E6B', 'Steel': '72798D', 'Electric': 'F4F700', 'Psychic': 'F261D1', 'Ice': 'EAFCFC', 'Dragon': '3B256E', 'Dark': '282828', 'Fairy': 'FAB4E9'};
+
 window.onload = function()
 {
 	fetch('http://localhost/pokedex/getResults.php')
@@ -26,23 +29,32 @@ function writeResults()
 		}
 	}
 	results = document.getElementById('results')
-	results.innerHTML = ""
+	results.innerHTML = ''
 	for(var i=(25*pagenumber)-25;i<25*pagenumber;i++)
 	{
+		new_data[i]['Name'] = new_data[i]['Name'].charAt(0).toUpperCase() + new_data[i]['Name'].slice(1);
+		new_data[i]['Type1'] = new_data[i]['Type1'].charAt(0).toUpperCase() + new_data[i]['Type1'].slice(1);
+		new_data[i]['Type2'] = new_data[i]['Type2'].charAt(0).toUpperCase() + new_data[i]['Type2'].slice(1);
 		var flag = true;
 		try
 		{
-			results.innerHTML += new_data[i]['Name']+'<br>'+new_data[i]['Type1']+' '+new_data[i]['Type2']+'<br><br>';
+			results.innerHTML += '<div id=\"'+new_data[i]['Name']+'\" onclick=\"pokemonDetails(\''+new_data[i]['Name'].toLowerCase()+'\')\"><img src=\"'+new_data[i]['Sprite']+'\"><b>'+new_data[i]['Name']+'</b> <div class=\"type\" style=\"background-color:#'+colors[new_data[i]['Type1']]+'\">'+new_data[i]['Type1']+'</div> <div class=\"type\" style=\"background-color:#'+colors[new_data[i]['Type2']]+'\">'+new_data[i]['Type2']+'</div><br><br></div>';
+			h = document.getElementById(new_data[i]['Name']);
+			h.className += 'result';
 		}
 		catch
 		{
-			document.getElementById("nextpage").style.display = 'none';
 			var flag = false;
 		}
-		if(flag)
-		{
-			document.getElementById("nextpage").style.display = 'inline';
-		}
+	}
+	results.innerHTML += '<button id="prevpage" onclick="goToPrevPage()">Previous Page</button><button id="nextpage" onclick="goToNextPage()">Next Page</button>'
+	if(flag)
+	{
+		document.getElementById("nextpage").style.display = 'inline';
+	}
+	else
+	{
+		document.getElementById("nextpage").style.display = 'none';
 	}
 	window.scrollTo(0,0);
 }
@@ -66,4 +78,9 @@ function goToPrevPage()
 		}
 		document.getElementById("nextpage").style.display = 'inline';
 	}
+}
+
+function pokemonDetails(name)
+{
+	window.location.href = '/pokedex/pokemon.html?name='+name;
 }
