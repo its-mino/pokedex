@@ -19,11 +19,11 @@ window.onload = function()
 
 function writeResults()
 {
-	var query = document.getElementById('searchbar').value;
+	var query = document.getElementById('searchbar').value.toLowerCase();
 	var new_data = []
 	for(var i=0;i<data.length;i++)
 	{
-		if(data[i]['Name'].includes(query))
+		if(data[i]['Name'].toLowerCase().includes(query))
 		{
 			new_data.push(data[i]);
 		}
