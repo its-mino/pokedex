@@ -4,19 +4,24 @@ client = pokepy.V2Client(cache='in_memory')
 
 file = open('pokemon.sql', 'w')
 
-file.write('Drop table if exists Pokemon;\n')
-file.write('CREATE TABLE Pokemon (\n')
-file.write('Name varchar(100) NOT NULL,\n')
-file.write('Type1 varchar(100) NOT NULL,\n')
-file.write('Type2 varchar(100) NOT NULL,\n')
-file.write('Speed int(10) NOT NULL,\n')
-file.write('SpecialDefense int(10) NOT NULL,\n')
-file.write('SpecialAttack int(10) NOT NULL,\n')
-file.write('Defense int(10) NOT NULL,\n')
-file.write('Attack int(10) NOT NULL,\n')
-file.write('HP int(10) NOT NULL,\n')
-file.write('Sprite varchar(100) NOT NULL\n')
-file.write(');\n')
+file.write('Drop table if exists Pokemon;\n'+
+		   'CREATE TABLE Pokemon (\n'+
+		   'Name varchar(100) NOT NULL,\n'+
+		   'Type1 varchar(100) NOT NULL,\n'+
+		   'Type2 varchar(100) NOT NULL,\n'+
+		   'Speed int(10) NOT NULL,\n'+
+		   'SpecialDefense int(10) NOT NULL,\n'+
+		   'SpecialAttack int(10) NOT NULL,\n'+
+		   'Defense int(10) NOT NULL,\n'+
+		   'Attack int(10) NOT NULL,\n'+
+		   'HP int(10) NOT NULL,\n'+
+		   'Evo1 varchar(100) NOT NULL,\n'
+		   'Level1 varchar(10),\n'
+		   'Evo2 varchar(100) NOT NULL,\n'
+		   'Level2 varchar(10),\n'
+		   'Evo3 varchar(100) NOT NULL,\n'
+		   'Sprite varchar(100) NOT NULL\n'+
+		   ');\n')
 
 for i in range(1,808):
 	pokemon = client.get_pokemon(i)
@@ -27,7 +32,38 @@ for i in range(1,808):
 	else:
 		file.write(', \'\', ')
 	file.write(str(pokemon[0].stats[0].base_stat)+','+str(pokemon[0].stats[1].base_stat)+','+str(pokemon[0].stats[2].base_stat)+','+str(pokemon[0].stats[3].base_stat)+','+str(pokemon[0].stats[4].base_stat)+','+str(pokemon[0].stats[5].base_stat)+',')
+	species = client.get_pokemon_species(i)
+	species_id = species[0].evolution_chain.url.split('/')[-2]
+	chain = client.get_evolution_chain(species_id)[0].chain
+	file.write('\''+chain.species.name+'\',')
+	if('evolves_to' in dir(chain)):
+		if(len(chain.evolves_to) > 0):
+			file.write('\''+str(chain.evolves_to[0].evolution_details[0].min_level)+'\',')
+			chain = chain.evolves_to[0]
+			file.write('\''+chain.species.name+'\',')
+			if('evolves_to' in dir(chain)):
+				if(len(chain.evolves_to) > 0):
+					file.write('\''+str(chain.evolves_to[0].evolution_details[0].min_level)+'\',')
+					chain = chain.evolves_to[0]
+					file.write('\''+chain.species.name+'\',')
+				else:
+					file.write('NULL,\'\',')
+			else:
+				file.write('NULL,\'\',')
+		else:
+			file.write('NULL,\'\',NULL,\'\',')
+	else:
+		file.write('NULL,\'\',NULL,\'\',')
 	file.write('\'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/'+str(i)+'.png\');\n')
+
+	file.write('DROP table if exists `'+pokemon[0].name+'_moves`;\n'+
+			   'CREATE TABLE `'+pokemon[0].name+'_moves` (\n'+
+			   'Name varchar(100) NOT NULL,\n'+
+			   'LevelLearned varchar(10)\n'+
+			   ');\n')
+
+	for move in pokemon[0].moves:
+		file.write('INSERT INTO `'+pokemon[0].name+'_moves`'+' VALUES(\''+move.move.name+'\','+str(move.version_group_details[0].level_learned_at)+');\n')
 	print(pokemon[0].name)
 
 file.close()
