@@ -63,7 +63,15 @@ for i in range(1,808):
 			   ');\n')
 
 	for move in pokemon[0].moves:
+		if move.version_group_details[0].level_learned_at == 0:
+			if move.version_group_details[0].move_learn_method.name == 'egg':
+				move.version_group_details[0].level_learned_at = '\'Egg\''
+			elif move.version_group_details[0].move_learn_method.name == 'machine':
+				move.version_group_details[0].level_learned_at = '\'TM or HM\''
+			elif move.version_group_details[0].move_learn_method.name == 'tutor':
+				move.version_group_details[0].level_learned_at = '\'Tutor\''
+			else:
+				move.version_group_details[0].level_learned_at = '\'Event\''
 		file.write('INSERT INTO `'+pokemon[0].name+'_moves`'+' VALUES(\''+move.move.name+'\','+str(move.version_group_details[0].level_learned_at)+');\n')
-	print(pokemon[0].name)
 
 file.close()

@@ -51,6 +51,16 @@
 	border: 1px solid black;
 }
 
+#moveTable{
+	margin: auto;
+	border: 1px solid black;
+}
+
+.move{
+	padding: 5px;
+	border: 1px solid black;
+}
+
 .stat{
 	padding: 5px;
 	border: 1px solid black;

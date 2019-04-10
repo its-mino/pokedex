@@ -67,7 +67,6 @@ function getEvolutions()
 
 function writeData(evoImage1, evoImage2, evoImage3)
 {
-	console.log(data)
 	$('#info').append('<h3 id="pokemonName"><b>'+data['Name']+'</b></h3>'+
 					  '<div class="row">'+
 					  '<div class="col-md"><img id="pokemonImage" src="'+data['Sprite']+'"></img></div>'+
@@ -77,4 +76,56 @@ function writeData(evoImage1, evoImage2, evoImage3)
 					  '<div class="col-md"><div class=\"type2\" style=\"background-color:#'+colors[data['Type1']]+'\">'+data['Type1']+'</div> <div class=\"type2\" style=\"background-color:#'+colors[data['Type2']]+'\">'+data['Type2']+'</div></div>'+
 					  '<div class="col-md" style="text-align: center"><h5>Evolution Path</h5><img src="'+evoImage1+'"><span class="glyphicon glyphicon-arrow-right"></span>Lvl '+data['Level1']+'<img src="'+evoImage2+'"><span class="glyphicon glyphicon-arrow-right"></span>Lvl '+data['Level2']+'<img src="'+evoImage3+'"></div>'+
 					  '</div>')
+	fetch('http://localhost/pokedex/getMoves.php/?name='+data['Name'])
+	.then(function(response){
+		return response.json();
+	})
+	.then(function(myJson){
+		moves = myJson;
+		writeMoves(moves);
+	})
+}
+
+function writeMoves(moves)
+{
+	moves = sortMoves(moves)
+	$('#info').append('<h2><b>Moves<b></h2><table  id="moveTable">');
+	$('#moveTable').append('<tr><td class="move"><b>Move Name</b></td><td class="move"><b>Level Learned</b></td></tr><br>')
+	for(var i=0;i<moves[0].length;i++)
+	{
+		$('#moveTable').append('<tr><td class="move">'+moves[0][i]['Name'].charAt(0).toUpperCase()+moves[0][i]['Name'].slice(1) + '</td><td class="move">' + moves[0][i]['LevelLearned']+'</td></tr><br>')
+	}
+	for(var i=0;i<moves[1].length;i++)
+	{
+		$('#moveTable').append('<tr><td class="move">'+moves[1][i]['Name'].charAt(0).toUpperCase()+moves[1][i]['Name'].slice(1) + '</td><td class="move">' + moves[1][i]['LevelLearned']+'</td></tr><br>')
+	}
+	$('#info').append('</table>')
+}
+
+
+function sortMoves(moves)
+{
+	levelMoves = []
+	otherMoves = []
+	for(var i=0;i<moves.length;i++)
+	{
+		if(moves[i].LevelLearned != 'Tutor' && moves[i].LevelLearned != 'TM or HM' && moves[i].LevelLearned != 'Egg' && moves[i].LevelLearned != 'Event')
+		{
+			moves[i].LevelLearned = parseInt(moves[i].LevelLearned)
+			levelMoves.push(moves[i])
+		}
+		else
+		{
+			otherMoves.push(moves[i])
+		}
+	}
+	return [levelMoves.sort(compare), otherMoves.sort(compare)]
+}
+
+function compare(a,b) {
+	if (a.LevelLearned < b.LevelLearned)
+		return -1;
+	if (a.LevelLearned > b.LevelLearned)
+		return 1;
+	return 0;
 }
