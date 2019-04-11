@@ -90,18 +90,17 @@ function writeMoves(moves)
 {
 	moves = sortMoves(moves)
 	$('#info').append('<h2><b>Moves<b></h2><table  id="moveTable">');
-	$('#moveTable').append('<tr><td class="move"><b>Move Name</b></td><td class="move"><b>Level Learned</b></td></tr><br>')
+	$('#moveTable').append('<tr><td class="move"><b>Move Name</b></td><td class="move"><b>Level Learned</b></td><td class="move"><b>Type</b></td><td class="move"><b>Effect</b></td><td class="move"><b>Power</b></td><td class="move"><b>Accuracy</b></td><td class="move"><b>PP</b></td></tr><br>')
 	for(var i=0;i<moves[0].length;i++)
 	{
-		$('#moveTable').append('<tr><td class="move">'+moves[0][i]['Name'].charAt(0).toUpperCase()+moves[0][i]['Name'].slice(1) + '</td><td class="move">' + moves[0][i]['LevelLearned']+'</td></tr><br>')
+		$('#moveTable').append('<tr><td class="move">'+moves[0][i]['Name'].charAt(0).toUpperCase()+moves[0][i]['Name'].slice(1) + '</td><td class="move">' + moves[0][i]['LevelLearned']+'</td><td class="move">' + moves[0][i]['Type']+'</td><td class="move">' + moves[0][i]['Effect']+'</td><td class="move">' + moves[0][i]['Power']+'</td><td class="move">' + moves[0][i]['Accuracy']+'</td><td class="move">' + moves[0][i]['PP']+'</td></tr><br>')
 	}
 	for(var i=0;i<moves[1].length;i++)
 	{
-		$('#moveTable').append('<tr><td class="move">'+moves[1][i]['Name'].charAt(0).toUpperCase()+moves[1][i]['Name'].slice(1) + '</td><td class="move">' + moves[1][i]['LevelLearned']+'</td></tr><br>')
+		$('#moveTable').append('<tr><td class="move">'+moves[1][i]['Name'].charAt(0).toUpperCase()+moves[1][i]['Name'].slice(1) + '</td><td class="move">' + moves[1][i]['LevelLearned']+'</td><td class="move">' + moves[1][i]['Type']+'</td><td class="move">' + moves[1][i]['Effect']+'</td><td class="move">' + moves[1][i]['Power']+'</td><td class="move">' + moves[1][i]['Accuracy']+'</td><td class="move">' + moves[1][i]['PP']+'</td></tr><br>')
 	}
 	$('#info').append('</table>')
 }
-
 
 function sortMoves(moves)
 {
