@@ -14,8 +14,7 @@
     integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
     <!-- JS, Popper.js, jQuery -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
     crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
     integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
@@ -34,7 +33,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <img class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
                     <a class="nav-link" href="builder.html">Team Builder <span class="sr-only">(current)</span></a>
@@ -43,15 +42,46 @@
                     <a class="nav-link" href="proteam.html">Pro Teams <span class="sr-only">(current)</span></a>
                 </li>
             </ul>
-            </div>
+            </img>
         </nav>
     </header>
-
-    
-
+    <table>
+        <tr>
+            <td><h3 id="name1">Choose One:</h3><img onclick="choosePokemon(1)" id="pokemon1"></td>
+            <td><h3 id="name2">Choose One:</h3><img onclick="choosePokemon(2)" id="pokemon2"></td>
+            <td><h3 id="name3">Choose One:</h3><img onclick="choosePokemon(3)" id="pokemon3"></td>
+            <td><h3 id="name4">Choose One:</h3><img onclick="choosePokemon(4)" id="pokemon4"></td>
+            <td><h3 id="name5">Choose One:</h3><img onclick="choosePokemon(5)" id="pokemon5"></td>
+            <td><h3 id="name6">Choose One:</h3><img onclick="choosePokemon(6)" id="pokemon6"></td>
+        </tr>
+    </table>
+    <button type="button">Reset</button>
     <footer class="page-footer font-small">
 
     </footer>
 </body>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button style="margin:0" type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <input id="searchbarModal" oninput="writeResults()" class="form-control search mx-auto" type="text" placeholder="Search" aria-label="Search">
+
+                <div id="results">
+                    <button id="prevpage" onclick="goToPrevPage()">Previous Page</button>
+                    <button id="nextpage" onclick="goToNextPage()">Next Page</button>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 </html>

@@ -3,7 +3,20 @@
 	margin-bottom: 50px;
 }
 
+.search{
+	width: 90% !important;
+	margin-bottom: 50px;
+}
+
+.resultModal{
+	width: 100%;
+}
+
 .result:hover{
+	background-color: #D3D3D3;
+}
+
+.resultModal:hover{
 	background-color: #D3D3D3;
 }
 
@@ -32,7 +45,7 @@
 }
 
 #results{
-	width:50%;
+	width:90%;
 	margin: auto;
 }
 
@@ -64,4 +77,15 @@
 .stat{
 	padding: 5px;
 	border: 1px solid black;
+}
+
+#pokemon1, #pokemon2, #pokemon3, #pokemon4, #pokemon5, #pokemon6{
+	border: 1px solid black;
+	width: 200px;
+	height: 200px;
+	margin: 25px;
+}
+
+#name1, #name2, #name3, #name4, #name5, #name6{
+	text-align: center;
 }
