@@ -2,6 +2,34 @@ data = {}
 pagenumber = 1
 colors = {'Poison':'DA35DC', 'Grass':'35DC43', 'Fire': 'FF0000', 'Water': '26CCFF', 'Bug': '458027', 'Flying': 'ADFFFF', 'Normal': 'E7E7E7', 'Fighting': 'A64141', 'Ground': 'D3B469', 'Rock': '85744C', 'Ghost': '6F6E6B', 'Steel': '72798D', 'Electric': 'F4F700', 'Psychic': 'F261D1', 'Ice': 'EAFCFC', 'Dragon': '3B256E', 'Dark': '282828', 'Fairy': 'FAB4E9'};
 id=0
+types = ['Poison', 'Grass', 'Fire', 'Water', 'Bug', 'Flying', 'Normal', 'Fighting', 'Ground', 'Rock', 'Ghost', 'Steel', 'Electric', 'Psychic', 'Ice', 'Dragon', 'Dark', 'Fairy']
+coveredTypes = []
+strongAgainst = {
+					'Normal': [],
+					'Fighting': ['Normal', 'Rock', 'Steel', 'Ice', 'Dark'],
+					'Flying': ['Fighting', 'Bug', 'Grass'],
+					'Poison': ['Grass', 'Fairy'],
+					'Ground': ['Poison', 'Rock', 'Steel', 'Fire', 'Electric'],
+					'Rock': ['Flying', 'Bug', 'Fire', 'Ice'],
+					'Bug': ['Grass', 'Psychic', 'Dark'],
+					'Ghost': ['Ghost', 'Psychic'],
+					'Steel': ['Rock', 'Ice', 'Fairy'],
+					'Fire': ['Bug', 'Steel', 'Grass', 'Ice'],
+					'Water': ['Ground', 'Rock', 'Fire'],
+					'Grass': ['Ground', 'Rock', 'Water'],
+					'Electric': ['Flying', 'Water'],
+					'Psychic': ['Fighting', 'Poison'],
+					'Ice': ['Flying', 'Ground', 'Grass', 'Dragon'],
+					'Dragon': ['Dragon'],
+					'Dark': ['Ghost', 'Psychic'],
+					'Fairy': ['Fighting', 'Dragon', 'Dark'] 
+				}
+
+window.onload = function()
+{
+	updateTypes()
+}
+
 function choosePokemon(num)
 {
 	id = num
@@ -63,6 +91,7 @@ function setPokemon(name, sprite)
 	$('#pokemon'+id).attr('src', sprite)
 	$('#name'+id).empty()
 	$('#name'+id).append(name.charAt(0).toUpperCase() + name.slice(1))
+	updateTypes();
 }
 
 function clearChoices()
@@ -73,4 +102,58 @@ function clearChoices()
 		$('#name'+i).empty();
 		$('#name'+i).append('Choose One:');
 	}
+	updateTypes();
 }
+
+function updateTypes()
+{
+	coveredTypes = [];
+	$('#covered').empty()
+	$('#uncovered').empty()
+
+	for(var n=1;n<=6;n++)
+	{
+		name = $('#name'+n).text()
+		if(name != 'Choose One:')
+		{
+			for(var i=0;i<data.length;i++)
+			{
+				if(data[i]['Name'] == name)
+				{
+					strongAgainst[data[i]['Type1']].forEach(function(type)
+					{
+						if(!coveredTypes.includes(type))
+						{
+							coveredTypes.push(type);
+						}
+					})
+					if(data[i]['Type2'] != '')
+					{
+						strongAgainst[data[i]['Type2']].forEach(function(type)
+						{
+							if(!coveredTypes.includes(type))
+							{
+								coveredTypes.push(type);
+							}
+						})
+					}
+					break;
+				}
+			}
+		}
+	}
+	for(var i=0;i<coveredTypes.length;i++)
+	{
+		$('#covered').append('<div class=\"typeCovered\" style=\"background-color:#'+colors[coveredTypes[i]]+'\">'+coveredTypes[i]+'</div>')
+	}
+
+	uncoveredTypes = types.diff(coveredTypes);
+	for(var i=0;i<uncoveredTypes.length;i++)
+	{
+		$('#uncovered').append('<div class=\"typeCovered\" style=\"background-color:#'+colors[uncoveredTypes[i]]+'\">'+uncoveredTypes[i]+'</div>')
+	}
+}
+
+Array.prototype.diff = function(a) {
+    return this.filter(function(i) {return a.indexOf(i) < 0;});
+};
