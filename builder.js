@@ -64,3 +64,13 @@ function setPokemon(name, sprite)
 	$('#name'+id).empty()
 	$('#name'+id).append(name.charAt(0).toUpperCase() + name.slice(1))
 }
+
+function clearChoices()
+{
+	for(var i=1;i<=6;i++)
+	{
+		$('#pokemon'+i).attr('src', 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=');
+		$('#name'+i).empty();
+		$('#name'+i).append('Choose One:');
+	}
+}
