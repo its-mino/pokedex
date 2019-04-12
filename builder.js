@@ -157,3 +157,24 @@ function updateTypes()
 Array.prototype.diff = function(a) {
     return this.filter(function(i) {return a.indexOf(i) < 0;});
 };
+
+function goToNextPage()
+{
+	pagenumber++;
+	writeResults();
+	document.getElementById("prevpage").style.display = 'inline';
+}
+
+function goToPrevPage()
+{
+	if(pagenumber > 1)
+	{
+		pagenumber--;
+		writeResults();
+		if(pagenumber == 1)
+		{
+			document.getElementById("prevpage").style.display = 'none';
+		}
+		document.getElementById("nextpage").style.display = 'inline';
+	}
+}
