@@ -87,6 +87,7 @@ function writeResults()
 
 function setPokemon(name, sprite)
 {
+	pagenumber = 1
 	$('#myModal').modal('hide');
 	$('#pokemon'+id).attr('src', sprite)
 	$('#name'+id).empty()
@@ -118,9 +119,9 @@ function updateTypes()
 		{
 			for(var i=0;i<data.length;i++)
 			{
-				if(data[i]['Name'] == name)
+				if(data[i]['Name'].toLowerCase() == name.toLowerCase())
 				{
-					strongAgainst[data[i]['Type1']].forEach(function(type)
+					strongAgainst[data[i]['Type1'].charAt(0).toUpperCase()+data[i]['Type1'].slice(1)].forEach(function(type)
 					{
 						if(!coveredTypes.includes(type))
 						{
@@ -129,7 +130,7 @@ function updateTypes()
 					})
 					if(data[i]['Type2'] != '')
 					{
-						strongAgainst[data[i]['Type2']].forEach(function(type)
+						strongAgainst[data[i]['Type2'].charAt(0).toUpperCase()+data[i]['Type2'].slice(1)].forEach(function(type)
 						{
 							if(!coveredTypes.includes(type))
 							{
@@ -144,13 +145,13 @@ function updateTypes()
 	}
 	for(var i=0;i<coveredTypes.length;i++)
 	{
-		$('#covered').append('<div class=\"typeCovered\" style=\"background-color:#'+colors[coveredTypes[i]]+'\">'+coveredTypes[i]+'</div>')
+		$('#covered').append('<div class=\"typeCovered\" onclick=\"writeType(\''+coveredTypes[i]+'\')\" style=\"background-color:#'+colors[coveredTypes[i]]+'\">'+coveredTypes[i]+'</div>')
 	}
 
 	uncoveredTypes = types.diff(coveredTypes);
 	for(var i=0;i<uncoveredTypes.length;i++)
 	{
-		$('#uncovered').append('<div class=\"typeCovered\" style=\"background-color:#'+colors[uncoveredTypes[i]]+'\">'+uncoveredTypes[i]+'</div>')
+		$('#uncovered').append('<div class=\"typeCovered\" onclick=\"writeType(\''+uncoveredTypes[i]+'\')\" style=\"background-color:#'+colors[uncoveredTypes[i]]+'\">'+uncoveredTypes[i]+'</div>')
 	}
 }
 
@@ -177,4 +178,87 @@ function goToPrevPage()
 		}
 		document.getElementById("nextpage").style.display = 'inline';
 	}
+}
+
+
+function writeType(type)
+{
+	$('#myModal2').modal({show:true});
+	fetch('http://localhost/pokedex/getResults.php')
+    .then(function(response) {
+    	return response.json();
+    })
+    .then(function(myJson) {
+    	data = myJson;
+    	filterTypes(type);
+  	});
+}
+
+function filterTypes(type)
+{
+	var query = document.getElementById('searchbarModal2').value.toLowerCase();
+	var new_data = []
+	for(var i=0;i<data.length;i++)
+	{
+		if(data[i]['Name'].toLowerCase().includes(query))
+		{
+			new_data.push(data[i]);
+		}
+	}
+	var new_new_data = []
+	for(var i=0;i<new_data.length;i++)
+	{
+		if(new_data[i]['Type1'] == type.toLowerCase() || new_data[i]['Type2'] == type.toLowerCase())
+		{
+			new_new_data.push(new_data[i]);
+		}
+	}
+	new_data = new_new_data;
+	results = document.getElementById('results2')
+	results.innerHTML = ''
+	for(var i=(25*pagenumber)-25;i<25*pagenumber;i++)
+	{
+		new_data[i]['Name'] = new_data[i]['Name'].charAt(0).toUpperCase() + new_data[i]['Name'].slice(1);
+		new_data[i]['Type1'] = new_data[i]['Type1'].charAt(0).toUpperCase() + new_data[i]['Type1'].slice(1);
+		new_data[i]['Type2'] = new_data[i]['Type2'].charAt(0).toUpperCase() + new_data[i]['Type2'].slice(1);
+		var flag = true;
+		try
+		{
+			results.innerHTML += '<div id=\"'+new_data[i]['Name']+'\" onclick=\"setPokemonType(\''+new_data[i]['Name'].toLowerCase()+'\', \''+new_data[i]['Sprite']+'\')\"><img src=\"'+new_data[i]['Sprite']+'\"><b>'+new_data[i]['Name']+'</b> <div class=\"type\" style=\"background-color:#'+colors[new_data[i]['Type1']]+'\">'+new_data[i]['Type1']+'</div> <div class=\"type\" style=\"background-color:#'+colors[new_data[i]['Type2']]+'\">'+new_data[i]['Type2']+'</div><br><br></div>';
+			h = document.getElementById(new_data[i]['Name']);
+			h.className += 'resultModal';
+		}
+		catch(e)
+		{
+			var flag = false;
+		}
+	}
+	results.innerHTML += '<button id="prevpage" onclick="goToPrevPage()">Previous Page</button><button id="nextpage" onclick="goToNextPage()">Next Page</button>'
+	if(flag)
+	{
+		document.getElementById("nextpage").style.display = 'inline';
+	}
+	else
+	{
+		document.getElementById("nextpage").style.display = 'none';
+	}
+}
+
+function setPokemonType(name, sprite)
+{
+	pagenumber = 1
+	$('#myModal2').modal('hide');
+
+	for(var i=1;i<=6;i++)
+	{
+		if($('#name'+i).text() == "Choose One:")
+		{
+			id = i;
+			break;
+		}
+	}
+	$('#pokemon'+id).attr('src', sprite)
+	$('#name'+id).empty()
+	$('#name'+id).append(name.charAt(0).toUpperCase() + name.slice(1))
+	updateTypes();
 }

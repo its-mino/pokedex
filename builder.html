@@ -90,4 +90,27 @@
     </div>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="myModal2" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button style="margin:0" type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <input id="searchbarModal2" oninput="filterTypes()" class="form-control search mx-auto" type="text" placeholder="Search" aria-label="Search">
+
+                <div id="results2">
+                    <button id="prevpage" onclick="goToPrevPage()">Previous Page</button>
+                    <button id="nextpage" onclick="goToNextPage()">Next Page</button>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 </html>
