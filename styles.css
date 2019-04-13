@@ -97,6 +97,13 @@
 	margin: 25px;
 }
 
+#imageHolder0, #imageHolder1, #imageHolder2, #imageHolder3, #imageHolder4, #imageHolder5{
+	border: 1px solid black;
+	width: 200px;
+	height: 200px;
+	margin: 25px;
+}
+
 #name1, #name2, #name3, #name4, #name5, #name6{
 	text-align: center;
 }

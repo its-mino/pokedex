@@ -22,7 +22,7 @@ strongAgainst = {
 					'Ice': ['Flying', 'Ground', 'Grass', 'Dragon'],
 					'Dragon': ['Dragon'],
 					'Dark': ['Ghost', 'Psychic'],
-					'Fairy': ['Fighting', 'Dragon', 'Dark'] 
+					'Fairy': ['Fighting', 'Dragon', 'Dark']
 				}
 
 window.onload = function()
