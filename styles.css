@@ -97,7 +97,12 @@
 	margin: 25px;
 }
 
-#imageHolder0, #imageHolder1, #imageHolder2, #imageHolder3, #imageHolder4, #imageHolder5{
+.proteamName{
+	text-align: center;
+
+}
+
+.proteamim{
 	border: 1px solid black;
 	width: 200px;
 	height: 200px;
