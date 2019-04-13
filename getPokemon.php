@@ -11,7 +11,7 @@
 	    die("Connection failed: " . $conn->connect_error);
 	}   
 
-	$sql = "SELECT * FROM Pokemon WHERE Name = \"".htmlspecialchars($_GET["name"])."\"";
+	$sql = "SELECT * FROM Pokemon WHERE Name LIKE \"".htmlspecialchars($_GET["name"])."%\"";
 	$result = $conn->query($sql);
 	while($r = mysqli_fetch_assoc($result)) {
 	    $rows[] = $r;
