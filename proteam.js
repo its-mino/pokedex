@@ -6,7 +6,7 @@ var teamcount = 0
 
 window.onload = function()
 {
-  myt = fetch('http://localhost/pokedex/proteam.php')
+  myt = fetch('http://pokepedia.tk/pokedex/proteam.php')
   .then(function(response){
     return response.json();
   })
@@ -40,7 +40,7 @@ function writeResults(pokemonName,i,j){
 
   console.log(pokemonName)
 
-    fetch('http://localhost/pokedex/getPokemon.php/?name='+pokemonName)
+    fetch('http://pokepedia.tk/pokedex/getPokemon.php/?name='+pokemonName)
       .then(function(response) {
       	return response.json();
       })

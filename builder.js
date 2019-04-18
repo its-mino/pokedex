@@ -34,7 +34,7 @@ function choosePokemon(num)
 {
 	id = num
 	$('#myModal').modal({show:true});
-	fetch('http://localhost/pokedex/getResults.php')
+	fetch('http://pokepedia.tk/pokedex/getResults.php')
     .then(function(response) {
     	return response.json();
     })

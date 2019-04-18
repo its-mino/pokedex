@@ -6,7 +6,7 @@ window.onload = function()
 	var urlParams = new URLSearchParams(window.location.search);
 	var targetPokemon = urlParams.get('name')
 
-	fetch('http://localhost/pokedex/getPokemon.php/?name='+targetPokemon)
+	fetch('http://pokepedia.tk/pokedex/getPokemon.php/?name='+targetPokemon)
     .then(function(response) {
     	return response.json();
     })
@@ -26,7 +26,7 @@ function getEvolutions()
 	evoImage3 = '';
 	if(data['Evo1'] != '')
 	{
-		fetch('http://localhost/pokedex/getPokemon.php/?name='+data['Evo1'])
+		fetch('http://pokepedia.tk/pokedex/getPokemon.php/?name='+data['Evo1'])
 		.then(function(response){
 			return response.json();
 		})
@@ -34,7 +34,7 @@ function getEvolutions()
 			evoImage1 = myJson[0]['Sprite'];
 			if(data['Evo2'] != '')
 			{
-				fetch('http://localhost/pokedex/getPokemon.php/?name='+data['Evo2'])
+				fetch('http://pokepedia.tk/pokedex/getPokemon.php/?name='+data['Evo2'])
 				.then(function(response){
 					return response.json();
 				})
@@ -42,7 +42,7 @@ function getEvolutions()
 					evoImage2 = myJson2[0]['Sprite'];
 					if(data['Evo3'] != '')
 					{
-						fetch('http://localhost/pokedex/getPokemon.php/?name='+data['Evo3'])
+						fetch('http://pokepedia.tk/pokedex/getPokemon.php/?name='+data['Evo3'])
 						.then(function(response){
 							return response.json();
 						})

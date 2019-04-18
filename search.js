@@ -5,7 +5,7 @@ colors = {'Poison':'DA35DC', 'Grass':'35DC43', 'Fire': 'FF0000', 'Water': '26CCF
 
 window.onload = function()
 {
-	fetch('http://localhost/pokedex/getResults.php')
+	fetch('http://pokepedia.tk/pokedex/getResults.php')
     .then(function(response) {
     	return response.json();
     })
