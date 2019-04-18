@@ -49,7 +49,7 @@ function writeResults(pokemonName,i,j){
 function writeImage(link,name, i, j)
 {
 
-    $(('#name' + i) + j).append(name)
+    $(('#name' + i) + j).append(name.charAt(0).toUpperCase()+name.slice(1))
     $(('#imageHolder' + i) + j).attr('src', link)
 
 }
