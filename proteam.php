@@ -1,5 +1,5 @@
   <?php
-	$servername = "http://pokepedia.tk";
+	$servername = "localhost";
 	$username = "ulxlx";
 	$password = "dbpw";
 	$dbname = "pokedex";
