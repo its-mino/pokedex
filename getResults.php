@@ -1,7 +1,7 @@
 <?php
-	$servername = "localhost";
-	$username = "root";
-	$password = "password1";
+	$servername = "pokepedia.tk";
+	$username = "ulxlx";
+	$password = "dbpw";
 	$dbname = "pokedex";
 
 	// Create connection
