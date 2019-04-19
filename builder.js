@@ -211,7 +211,7 @@ function filterTypes()
 	var new_new_data = []
 	for(var i=0;i<new_data.length;i++)
 	{
-		if(new_data[i]['Type1'] == searchType.toLowerCase() || new_data[i]['Type2'] == searchType.toLowerCase())
+		if(new_data[i]['Type1'].toLowerCase() === searchType.toLowerCase() || new_data[i]['Type2'].toLowerCase() === searchType.toLowerCase())
 		{
 			new_new_data.push(new_data[i]);
 		}
