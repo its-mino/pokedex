@@ -24,7 +24,7 @@ window.onload = function()
                   '<td><h3 class = "proteamName" id="name'+i+'3"></h3><img onclick="pokemonDetails(\''+teams[i]['Pokemon3']+'\')" class = "proteamim" id="imageHolder'+i+'3"></td>'+
                   '<td><h3 class = "proteamName" id="name'+i+'4"></h3><img onclick="pokemonDetails(\''+teams[i]['Pokemon4']+'\')" class = "proteamim" id="imageHolder'+i+'4"></td>'+
                   '<td><h3 class = "proteamName" id="name'+i+'5"></h3><img onclick="pokemonDetails(\''+teams[i]['Pokemon5']+'\')" class = "proteamim" id="imageHolder'+i+'5"></td>'+
-                  '<td><h3 class = "proteamName" id="name'+i+'6"></h3><img onclick="pokemonDetails(\''+teams[i]['Pokemon6']+'\')" class = "proteamim" id="imageHolder'+i+'6"></td></tr>');
+                  '<td><h3 class = "proteamName" id="name'+i+'6"></h3><img onclick="pokemonDetails(\''+teams[i]['Pokemon6']+'\')" class = "proteamim" id="imageHolder'+i+'6"></td></tr><br>');
 
       for(var j = 1; j<=6; j++)
       {
