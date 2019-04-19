@@ -204,12 +204,19 @@ function filterTypes()
 	{
 		if(data[i]['Name'].toLowerCase().includes(query))
 		{
-			if(data[i]['Type1'] == searchType.toLowerCase() || data[i]['Type2'] == searchType.toLowerCase())
-			{
-				new_data.push(data[i]);
-			}
+			new_data.push(data[i]);
 		}
 	}
+	var new_new_data = []
+	for(var i=0;i<new_data.length;i++)
+	{
+		if(new_data[i]['Type1'] == searchType.toLowerCase() || new_data[i]['Type2'] == searchType.toLowerCase())
+		{
+			new_new_data.push(new_data[i]);
+		}
+	}
+	new_data = new_new_data;
+	console.log(new_data)
 	results = document.getElementById('results2')
 	results.innerHTML = ''
 	for(var i=(25*pagenumber)-25;i<25*pagenumber;i++)
