@@ -204,7 +204,7 @@ function filterTypes()
 	{
 		if(data[i]['Name'].toLowerCase().includes(query))
 		{
-			if(new_data[i]['Type1'] == searchType.toLowerCase() || new_data[i]['Type2'] == searchType.toLowerCase())
+			if(data[i]['Type1'] == searchType.toLowerCase() || data[i]['Type2'] == searchType.toLowerCase())
 			{
 				new_data.push(data[i]);
 			}
