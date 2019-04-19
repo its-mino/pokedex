@@ -24,6 +24,7 @@ strongAgainst = {
 					'Dark': ['Ghost', 'Psychic'],
 					'Fairy': ['Fighting', 'Dragon', 'Dark']
 				}
+searchType = "";
 
 window.onload = function()
 {
@@ -183,6 +184,7 @@ function goToPrevPage()
 
 function writeType(type)
 {
+	searchType = type;
 	$('#myModal2').modal({show:true});
 	fetch('http://pokepedia.tk/pokedex/getResults.php')
     .then(function(response) {
@@ -194,7 +196,7 @@ function writeType(type)
   	});
 }
 
-function filterTypes(type)
+function filterTypes()
 {
 	var query = document.getElementById('searchbarModal2').value.toLowerCase();
 	var new_data = []
@@ -208,7 +210,7 @@ function filterTypes(type)
 	var new_new_data = []
 	for(var i=0;i<new_data.length;i++)
 	{
-		if(new_data[i]['Type1'] == type.toLowerCase() || new_data[i]['Type2'] == type.toLowerCase())
+		if(new_data[i]['Type1'] == searchType.toLowerCase() || new_data[i]['Type2'] == searchType.toLowerCase())
 		{
 			new_new_data.push(new_data[i]);
 		}
