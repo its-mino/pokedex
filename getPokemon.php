@@ -3,7 +3,7 @@
 	$username = "ulxlx";
 	$password = "dbpw";
 	$dbname = "pokedex";
-
+	
 	// Create connection
 	$conn = new mysqli($servername, $username, $password, $dbname);
 	// Check connection

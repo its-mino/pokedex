@@ -76,7 +76,7 @@ function writeData(evoImage1, evoImage2, evoImage3)
 					  '<div class="col-md"><div class=\"type2\" style=\"background-color:#'+colors[data['Type1']]+'\">'+data['Type1']+'</div> <div class=\"type2\" style=\"background-color:#'+colors[data['Type2']]+'\">'+data['Type2']+'</div></div>'+
 					  '<div class="col-md" style="text-align: center"><h5>Evolution Path</h5><img src="'+evoImage1+'"><span class="glyphicon glyphicon-arrow-right"></span>Lvl '+data['Level1']+'<img src="'+evoImage2+'"><span class="glyphicon glyphicon-arrow-right"></span>Lvl '+data['Level2']+'<img src="'+evoImage3+'"></div>'+
 					  '</div>')
-	fetch('http://localhost/pokedex/getMoves.php/?name='+data['Name'])
+	fetch('http://pokepedia.tk/pokedex/getMoves.php/?name='+data['Name'])
 	.then(function(response){
 		return response.json();
 	})
