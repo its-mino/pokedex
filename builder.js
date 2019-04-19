@@ -207,6 +207,7 @@ function filterTypes()
 			new_data.push(data[i]);
 		}
 	}
+	console.log(new_data)
 	var new_new_data = []
 	for(var i=0;i<new_data.length;i++)
 	{
