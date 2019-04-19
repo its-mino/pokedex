@@ -207,7 +207,6 @@ function filterTypes()
 			new_data.push(data[i]);
 		}
 	}
-	console.log(new_data)
 	var new_new_data = []
 	for(var i=0;i<new_data.length;i++)
 	{
@@ -217,7 +216,6 @@ function filterTypes()
 		}
 	}
 	new_data = new_new_data;
-	console.log(new_data)
 	results = document.getElementById('results2')
 	results.innerHTML = ''
 	for(var i=(25*pagenumber)-25;i<25*pagenumber;i++)
